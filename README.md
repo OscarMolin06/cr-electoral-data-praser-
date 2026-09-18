@@ -18,50 +18,8 @@ A Java application designed to process Costa Rica's official electoral registry 
 
 * **Language:** Java (JDK 8+)
 * **GUI:** Java Swing
-* **Networking:** TCP Sockets (`java.net`), HTTP Server (`com.sun.net.httpserver`)
+* **Networking:** TCP Sockets (java.net), HTTP Server (com.sun.net.httpserver)
 * **Libraries:** Gson (JSON serialization)
 * **Environment:** NetBeans / Git
 
-
-## Project Structure
-
-The project follows a layered architecture to keep presentation, business logic, and data access separated:
-
-``text
-src/
-├── app/                  # Main Application Entry Point
-│   └── Main.java
-│
-├── datos/                # Data Access Layer (Repository Interfaces & File I/O)
-│   ├── RepositorioDistelec.java
-│   ├── RepositorioDistelecArchivo.java
-│   ├── RepositorioPadron.java
-│   └── RepositorioPadronArchivo.java
-│
-├── dto/                  # Data Transfer Objects
-│   ├── FormatoSalida.java
-│   ├── RespuestaPadron.java
-│   └── SolicitudPadron.java
-│
-├── entidades/            # Core Domain Entities
-│   ├── Direccion.java
-│   └── Persona.java
-│
-├── logica/               # Business Logic Layer (Services)
-│   └── ServicioPadron.java
-│
-├── presentacion/         # Presentation Layer & Protocol Handlers
-│   ├── gui/              # Swing Graphical User Interface
-│   │   └── VentanaPrincipal.java
-│   ├── http/             # REST HTTP Endpoint Handlers & Server
-│   │   ├── PadronHttpHandler.java
-│   │   └── ServidorHttp.java
-│   └── tcp/              # TCP Sockets, Handlers & Command Parser
-│       ├── ClienteTcpHandler.java
-│       ├── ServidorTcp.java
-│       └── SolicitudTcpParser.java
-│
-└── util/                 # Cross-cutting Utilities
-    ├── Serializador.java # Dynamic JSON & XML Formatting
-    └── ValidadorCedula.java
 

@@ -27,7 +27,7 @@ A Java application designed to process Costa Rica's official electoral registry 
 
 The project follows a layered architecture to keep presentation, business logic, and data access separated:
 
-text
+``text
 src/
 ├── app/                  # Main Application Entry Point
 │   └── Main.java

@@ -1,71 +1,45 @@
-# Costa Rica Electoral Registry Data Parser & Network Query System
+# Costa Rica Electoral Registry Parser & Query Engine
 
-A robust Java application built with an **N-Tier Layered Architecture** to parse, process, and query massive electoral registry data from Costa Rica's Supreme Electoral Tribunal (TSE). The system supports dynamic local queries alongside multi-protocol network integration (**HTTP REST Endpoint** and **TCP Socket Server**), serializing responses into structured **JSON** and **XML** payloads.
-
----
-
-## 🌟 Key Features
-
-* **TSE Flat-File Parsing:** Processes raw electoral text data (`PADRON.TXT`) to extract citizen IDs, full names, and electoral codes efficiently.
-* **Multi-Format Serialization:** Dynamically formats queried entities into **JSON** or **XML** payloads based on client request headers or parameters.
-* **Multi-Protocol Access Points:**
-  * **Interactive GUI:** Built with Java Swing for local testing, input validation, and real-time response inspection.
-  * **HTTP REST API:** Handles GET requests over HTTP protocol (e.g., `http://localhost:9090/padron?cedula=305470104&format=json`).
-  * **TCP Socket Server:** Processes raw TCP commands using custom network protocols (e.g., `GET|305470104|XML`).
-* **Input Validation:** Built-in validation rules for Costa Rican identification numbers (*Cédula*).
+A Java application designed to process Costa Rica's official electoral registry (TSE) from flat text files. It supports local queries via a graphical interface as well as remote requests through an HTTP server (REST API) and TCP sockets, returning citizen data serialized in JSON or XML formats.
 
 ---
 
-## 🛠️ Tech Stack & Tools
+## Features
+
+* **Electoral Registry Parsing:** Efficiently reads and parses raw `PADRON.TXT` files provided by TSE to extract ID numbers, full names, and electoral codes.
+* **Multiple Output Formats:** Dynamically serializes payload responses into **JSON** or **XML** based on client requests.
+* **Three Access Methods:**
+  * **GUI (Java Swing):** Graphical interface for local testing and manual lookup.
+  * **HTTP Endpoint:** Integrated HTTP server handling RESTful GET requests (e.g., `http://localhost:9090/padron?cedula=305470104&format=json`).
+  * **TCP Server:** Socket communication processing custom commands (e.g., `GET|305470104|XML`).
+* **Validation:** Built-in logic to validate Costa Rican national ID formats before initiating search operations.
+
+---
+
+## Tech Stack
 
 * **Language:** Java (JDK 8+)
-* **GUI Framework:** Java Swing
-* **Networking & Protocols:** TCP/IP Sockets (`java.net`), HTTP Server (`com.sun.net.httpserver`)
-* **Serialization:** JSON (Gson), XML (`javax.xml`)
-* **Architecture:** Layered Architecture / Dependency Inversion Principle
-* **IDE & Version Control:** NetBeans, Git, GitHub
+* **GUI:** Java Swing
+* **Networking:** TCP Sockets (`java.net`), HTTP Server (`com.sun.net.httpserver`)
+* **Libraries:** Gson (JSON serialization)
+* **Environment:** NetBeans / Git
 
 ---
 
-## 🏗️ Project Architecture & Structure
+## Project Structure
 
-The codebase strictly adheres to **Clean Architecture** principles, maintaining a decoupled separation of concerns across packages:
+The project follows a layered architecture to keep presentation, business logic, and data access separated:
 
 ```text
 src/
-├── app/                  # Main Application Entry Point
-│   └── Main.java
-│
-├── datos/                # Data Access Layer (Repository Interfaces & File I/O)
-│   ├── RepositorioDistelec.java
-│   ├── RepositorioDistelecArchivo.java
-│   ├── RepositorioPadron.java
-│   └── RepositorioPadronArchivo.java
-│
+├── app/                  # Main entry point (Main.java)
+├── datos/                # Data access & file I/O handling
 ├── dto/                  # Data Transfer Objects
-│   ├── FormatoSalida.java
-│   ├── RespuestaPadron.java
-│   └── SolicitudPadron.java
-│
-├── entidades/            # Core Domain Entities
-│   ├── Direccion.java
-│   └── Persona.java
-│
-├── logica/               # Business Logic Layer (Services)
-│   └── ServicioPadron.java
-│
-├── presentacion/         # Presentation Layer & Protocol Handlers
-│   ├── gui/              # Swing Graphical User Interface
-│   │   └── VentanaPrincipal.java
-│   ├── http/             # REST HTTP Endpoint Handlers & Server
-│   │   ├── PadronHttpHandler.java
-│   │   └── ServidorHttp.java
-│   └── tcp/              # TCP Sockets, Handlers & Command Parser
-│       ├── ClienteTcpHandler.java
-│       ├── ServidorTcp.java
-│       └── SolicitudTcpParser.java
-│
-└── util/                 # Cross-cutting Utilities
-    ├── Serializador.java # Dynamic JSON & XML Formatting
-    └── ValidadorCedula.java
+├── entidades/            # Core domain entities (Persona, Direccion)
+├── logica/               # Electoral registry lookup logic
+├── presentacion/         # Access handlers
+│   ├── gui/              # Swing GUI window
+│   ├── http/             # HTTP server & endpoint handlers
+│   └── tcp/              # TCP socket handlers & command parser
+└── util/                 # Utility classes (ID validator & JSON/XML serializer)
 

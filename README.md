@@ -5,12 +5,12 @@ A Java application designed to process Costa Rica's official electoral registry 
 
 ## Features
 
-* **Electoral Registry Parsing:** Efficiently reads and parses raw `PADRON.TXT` files provided by TSE to extract ID numbers, full names, and electoral codes.
+* **Electoral Registry Parsing:** Efficiently reads and parses raw PADRON.TXT files provided by TSE to extract ID numbers, full names, and electoral codes.
 * **Multiple Output Formats:** Dynamically serializes payload responses into **JSON** or **XML** based on client requests.
 * **Three Access Methods:**
   * **GUI (Java Swing):** Graphical interface for local testing and manual lookup.
-  * **HTTP Endpoint:** Integrated HTTP server handling RESTful GET requests (e.g., `http://localhost:9090/padron?cedula=305470104&format=json`).
-  * **TCP Server:** Socket communication processing custom commands (e.g., `GET|305470104|XML`).
+  * **HTTP Endpoint:** Integrated HTTP server handling RESTful GET requests (e.g., http://localhost:9090/padron?cedula=305470104&format=json).
+  * **TCP Server:** Socket communication processing custom commands (e.g., GET|305470104|XML).
 * **Validation:** Built-in logic to validate Costa Rican national ID formats before initiating search operations.
 
 
@@ -27,7 +27,7 @@ A Java application designed to process Costa Rica's official electoral registry 
 
 The project follows a layered architecture to keep presentation, business logic, and data access separated:
 
-```text
+text
 src/
 ├── app/                  # Main Application Entry Point
 │   └── Main.java

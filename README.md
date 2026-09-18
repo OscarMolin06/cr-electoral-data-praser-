@@ -2,7 +2,6 @@
 
 A Java application designed to process Costa Rica's official electoral registry (TSE) from flat text files. It supports local queries via a graphical interface as well as remote requests through an HTTP server (REST API) and TCP sockets, returning citizen data serialized in JSON or XML formats.
 
----
 
 ## Features
 
@@ -14,7 +13,6 @@ A Java application designed to process Costa Rica's official electoral registry 
   * **TCP Server:** Socket communication processing custom commands (e.g., `GET|305470104|XML`).
 * **Validation:** Built-in logic to validate Costa Rican national ID formats before initiating search operations.
 
----
 
 ## Tech Stack
 
@@ -24,7 +22,6 @@ A Java application designed to process Costa Rica's official electoral registry 
 * **Libraries:** Gson (JSON serialization)
 * **Environment:** NetBeans / Git
 
----
 
 ## Project Structure
 
@@ -32,14 +29,39 @@ The project follows a layered architecture to keep presentation, business logic,
 
 ```text
 src/
-├── app/                  # Main entry point (Main.java)
-├── datos/                # Data access & file I/O handling
+├── app/                  # Main Application Entry Point
+│   └── Main.java
+│
+├── datos/                # Data Access Layer (Repository Interfaces & File I/O)
+│   ├── RepositorioDistelec.java
+│   ├── RepositorioDistelecArchivo.java
+│   ├── RepositorioPadron.java
+│   └── RepositorioPadronArchivo.java
+│
 ├── dto/                  # Data Transfer Objects
-├── entidades/            # Core domain entities (Persona, Direccion)
-├── logica/               # Electoral registry lookup logic
-├── presentacion/         # Access handlers
-│   ├── gui/              # Swing GUI window
-│   ├── http/             # HTTP server & endpoint handlers
-│   └── tcp/              # TCP socket handlers & command parser
-└── util/                 # Utility classes (ID validator & JSON/XML serializer)
+│   ├── FormatoSalida.java
+│   ├── RespuestaPadron.java
+│   └── SolicitudPadron.java
+│
+├── entidades/            # Core Domain Entities
+│   ├── Direccion.java
+│   └── Persona.java
+│
+├── logica/               # Business Logic Layer (Services)
+│   └── ServicioPadron.java
+│
+├── presentacion/         # Presentation Layer & Protocol Handlers
+│   ├── gui/              # Swing Graphical User Interface
+│   │   └── VentanaPrincipal.java
+│   ├── http/             # REST HTTP Endpoint Handlers & Server
+│   │   ├── PadronHttpHandler.java
+│   │   └── ServidorHttp.java
+│   └── tcp/              # TCP Sockets, Handlers & Command Parser
+│       ├── ClienteTcpHandler.java
+│       ├── ServidorTcp.java
+│       └── SolicitudTcpParser.java
+│
+└── util/                 # Cross-cutting Utilities
+    ├── Serializador.java # Dynamic JSON & XML Formatting
+    └── ValidadorCedula.java
 
